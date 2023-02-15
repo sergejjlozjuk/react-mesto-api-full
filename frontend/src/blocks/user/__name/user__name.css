@@ -1,0 +1,24 @@
+.user__name {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 48px;
+    color: #fff;
+    padding: 0 0 0 15px;
+    margin: 0;
+    grid-area: user-name;
+    max-width: 296px;
+    align-self: end;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+@media screen and (min-width: 320px) and (max-width: 713px) {
+    .user__name{
+        font-size: 27px;
+        line-height: 33px;
+        text-align: center;
+        padding: 31px 0 0 27px;
+    }
+}

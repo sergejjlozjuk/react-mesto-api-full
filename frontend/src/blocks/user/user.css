@@ -1,0 +1,13 @@
+.user {
+    display: flex;
+    align-items: center;
+    max-width: 880px;
+    margin: 0;
+    padding: 36px 0 0;
+}
+@media screen and (min-width: 320px) and (max-width: 713px) {
+    .user{
+        padding-top: 42px;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,21 @@
+.user__profile {
+    display: grid;
+    grid-template-columns: 120px 311px minmax(30px, 254px) 150px;
+    grid-template-rows: 72px 34px auto;
+    grid-template-areas: 
+    "user-image user-name change-button add-button"
+    ". user-info . .";
+    column-gap: 15px;
+}
+@media screen and (max-width: 713px) {
+    .user__profile{
+        grid-template-areas: 
+        "user-image user-image"
+        "user-name change-button"
+        "user-info ."
+        "add-button .";
+        grid-template-columns: repeat(auto-fit, 216px);
+         grid-template-rows: repeat(auto-fit, 116px);
+         column-gap: 10px;
+    }
+}

@@ -1,0 +1,13 @@
+.user__image-overlay{
+    position: absolute;
+    grid-area: user-image;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    opacity: 0;
+    background: url(../../../images/pencil.svg) center no-repeat #000;
+    background-size: 26px;
+}
+.user__image-overlay:hover {
+    opacity: .8;
+}

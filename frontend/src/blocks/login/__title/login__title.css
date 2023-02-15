@@ -1,0 +1,17 @@
+.login__title {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    color: #fff;
+    text-align: center;
+    margin-top: 59px;
+}
+@media screen and (min-width: 320px) and (max-width: 713px) {
+    .login__title{
+        font-size: 20px;
+        margin-top: 39px;
+        margin-bottom: 7px;
+    }
+}

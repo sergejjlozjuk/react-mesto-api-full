@@ -1,0 +1,29 @@
+.user__add-button{
+    width: 150px;
+    height: 50px;
+    background-color: none;
+    background: url("../../../images/plus.svg") center no-repeat;
+    color: #fff;
+    padding: 0;
+    margin: 37px 0 0;
+    justify-self: end;
+    grid-area: add-button;
+    border: 2px solid #fff;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.user__add-button:hover{
+    opacity: .6;
+}
+@media screen and (max-width: 713px) {
+    .user__add-button{
+        width: 282px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 713px) {
+    .user__add-button{
+        justify-self: center;
+        margin: 32px 0 0 28px;
+        background-size: 16px;
+    }
+}

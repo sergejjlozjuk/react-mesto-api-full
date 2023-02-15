@@ -1,0 +1,29 @@
+.popup__button-confirm{
+        font-family: 'Inter', 'Arial', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        text-align: center;
+        background-color: #000;
+        color: #FFF;
+        width: 358px;
+        border: none;
+        margin: -17px 0 0;
+        padding: 0;
+        height: 50px;
+        border-radius: 2px;
+        cursor: pointer;
+}
+
+.popup__button-confirm:hover{
+    opacity: .8;
+}
+@media screen and (max-width: 550px) {
+    .popup__button-confirm{
+        width: 238px;
+        font-size: 14px;
+        line-height: 17px;
+        margin: 11px 0 23px;
+    }
+}

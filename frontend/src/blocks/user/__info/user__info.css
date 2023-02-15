@@ -1,0 +1,22 @@
+.user__info {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #fff;
+    padding: 8px 0 0 15px;
+    margin: 0;
+    grid-area: user-info;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+@media screen and (min-width: 320px) and (max-width: 713px) {
+    .user__info{
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        padding-left: 28px;
+    }
+}
