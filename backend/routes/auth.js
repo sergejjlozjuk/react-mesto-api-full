@@ -1,6 +1,6 @@
 const authRouter = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { createUser, login } = require('../controllers/users');
+const { createUser, login, signOut } = require('../controllers/users');
 const { regex } = require('../constants/constants');
 
 authRouter.post(
@@ -25,6 +25,10 @@ authRouter.post(
     },
   }),
   login,
+);
+authRouter.delete(
+  '/',
+  signOut,
 );
 
 module.exports = {

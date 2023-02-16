@@ -11,7 +11,6 @@ const getUsers = (req, res, next) => {
     .catch(next);
 };
 const getUserProfile = (req, res, next) => {
-  console.log(req.headers)
   User.findById(req.user._id)
     .orFail(new NotFoundError('Такого пользователя не существует'))
     .then((user) => {
@@ -103,29 +102,37 @@ const login = (req, res, next) => {
       } return user;
     })
     .then((user) => {
-      const matched = bcrypt.compare(password, user.password);
-      if (!matched) {
-        Promise.reject(
-          new AuthenticationError('Неправильные почта или пароль'),
-        );
-      } else {
-        const token = jwt.sign(
-          { _id: user._id },
-          NODE_ENV === 'production' ? JWT_SECRET : 'dev',
-          {
-            expiresIn: '7d',
-          },
-        );
-        res.cookie('token', token, {
-          httpOnly: true,
-          domain: 'localhost:3001',
-          secure: 'None',
-        });
-        res.send({ data: 'mddmd' });
-        return res.end();
-      }
+      bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            Promise.reject(
+              new AuthenticationError('Неправильные почта или пароль'),
+            )
+              .catch(next);
+          } else {
+            const token = jwt.sign(
+              { _id: user._id },
+              NODE_ENV === 'production' ? JWT_SECRET : 'dev',
+              {
+                expiresIn: '7d',
+              },
+            );
+            res.cookie('token', token, {
+              httpOnly: true,
+              sameSite: 'none',
+              secure: true,
+            });
+            res.status(200).send({ message: 'Авторизация успешна!' });
+          }
+        })
+        .catch(next);
     })
     .catch(next);
+};
+const signOut = (req, res) => {
+  res.clearCookie('token');
+  res.send({ message: 'Деавторизация' });
+  return res.end();
 };
 
 module.exports = {
@@ -136,4 +143,5 @@ module.exports = {
   updateAvatar,
   login,
   getUserProfile,
+  signOut,
 };
