@@ -34,6 +34,6 @@
     * html, css, js
 
 ## Ссылки
- *[IP](158.160.19.192)
- *[Front-end](http://mesto.sergejj.nomoredomainsclub.ru/)
- *[Back-end](https://api.mesto.sergejj.nomoredomainsclub.ru/)
+ * [IP](158.160.19.192)
+ * [Front-end](http://mesto.sergejj.nomoredomainsclub.ru/)
+ * [Back-end](https://api.mesto.sergejj.nomoredomainsclub.ru/)
