@@ -13,6 +13,7 @@ export default class Auth {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify({
         password: data.password,
         email: data.email,
@@ -26,6 +27,7 @@ export default class Auth {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify({
         password: data.password,
         email: data.email,
@@ -34,14 +36,24 @@ export default class Auth {
     .then(this._getResponseData)
   }
 
-  checkToken(token) {
+  checkToken() {
     return fetch(`${this.baseURL}/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-        'credentials': 'include',
       },
+      credentials: 'include',
+    })
+    .then(this._getResponseData)
+  }
+
+  signOut() {
+    return fetch(`${this.baseURL}/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
     })
     .then(this._getResponseData)
   }

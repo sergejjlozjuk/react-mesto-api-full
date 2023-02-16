@@ -36,7 +36,6 @@ export default function App() {
   })
   const [loggedIn, setLoggedIn] = useState(false)
   const [email, setEmail] = useState('')
-  const [token, setToken] = useState(null)
   const [dataInfoPopup, setDataInfoPopup] = React.useState({
     text: '',
     image: '',
@@ -150,26 +149,24 @@ export default function App() {
       .catch((err) => console.log(err))
   }
   function checkAuthorization() {
-    // setToken(localStorage.getItem('token'))
-    // if (token) {
       auth
-        .checkToken(token)
+        .checkToken()
         .then((res) => {
           setEmail(res.data.email)
           setLoggedIn(true)
           history.push('/')
         })
         .catch((err) => console.log(err))
-    // }
   }
   function handleAuthorization(data) {
     auth
       .authorization(data)
       .then((res) => {
-        localStorage.setItem('token', res.token)
-        setToken(res.token)
-        setLoggedIn(true)
-        history.goForward('/')
+        console.log(res)
+        if (res) {
+          setLoggedIn(true)
+          history.goForward('/')
+        }
       })
       .catch((err) => {
         setIsInfo(true)
@@ -201,10 +198,9 @@ export default function App() {
       })
   }
   function signOut() {
-    localStorage.removeItem('token')
     setLoggedIn(false)
     setEmail('')
-    setToken(null)
+    auth.signOut()
     setCurrenUser(null)
     history.push('/sign-in')
   }
@@ -233,9 +229,7 @@ export default function App() {
         .catch((err) => console.log(err))
   }, [loggedIn])
   useEffect(() => {
-    if (localStorage.getItem('token')) {
       checkAuthorization()
-    }
   })
   useEffect(() => {
     function closeByEscape(evt) {

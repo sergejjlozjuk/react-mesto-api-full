@@ -15,17 +15,20 @@ class Api {
   getInitialCards() {
     return this._request('/cards', {
       headers: this.headers,
+      credentials: 'include',
     })
   }
   getUserInfo() {
     return this._request('/users/me', {
       headers: this.headers,
+      credentials: 'include',
     })
   }
   editAvatar(link) {
     return this._request('/users/me/avatar', {
       method: 'PATCH',
       headers: this.headers,
+      credentials: 'include',
       body: JSON.stringify({
         avatar: link,
       }),
@@ -35,6 +38,7 @@ class Api {
     return this._request('/users/me', {
       method: 'PATCH',
       headers: this.headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: formValues.name,
         about: formValues.about,
@@ -45,6 +49,7 @@ class Api {
     return this._request('/cards', {
       method: 'POST',
       headers: this.headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: title,
         link: link,
@@ -55,18 +60,21 @@ class Api {
     return this._request(`/cards/${card._id}`, {
       method: 'DELETE',
       headers: this.headers,
+      credentials: 'include',
     })
   }
   setCardLike(card) {
     return this._request(`/cards/${card._id}/likes`, {
       method: 'PUT',
       headers: this.headers,
+      credentials: 'include',
     })
   }
   deleteCardLike(card) {
     return this._request(`/cards/${card._id}/likes`, {
       method: 'DELETE',
       headers: this.headers,
+      credentials: 'include',
     })
   }
 }
@@ -74,9 +82,7 @@ class Api {
 const api = new Api({
   baseUrl: 'http://localhost:3000',
   headers: {
-    'authorization': `Bearer ${localStorage.getItem('token')}`,
     'Content-Type': 'application/json',
-    'credentials': 'include'
   },
 })
 export { api }
