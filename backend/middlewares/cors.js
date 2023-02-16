@@ -2,7 +2,10 @@ const allowedCors = [
   'https://praktikum.tk',
   'http://praktikum.tk',
   'http://localhost:3001',
+  'http://localhost:3000',
   'https://api.mesto.sergejj.nomoredomainsclub.ru/',
+  'https://.mesto.sergejj.nomoredomainsclub.ru/',
+  'http://.mesto.sergejj.nomoredomainsclub.ru/',
 ];
 
 function checkSource(req, res, next) {
