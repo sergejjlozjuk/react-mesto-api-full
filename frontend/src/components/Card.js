@@ -17,7 +17,8 @@ export default class Card extends React.Component {
       <article className="place">
         <button
           className={`place__trash ${
-            this.props.card.owner._id === this.context._id
+            this.props.card.owner._id === this.context._id ||
+            this.props.card.owner === this.context._id
               ? ''
               : 'place__trash_inactive'
           }`}
