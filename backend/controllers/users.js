@@ -130,7 +130,11 @@ const login = (req, res, next) => {
     .catch(next);
 };
 const signOut = (req, res) => {
-  res.clearCookie('token');
+  res.clearCookie('token', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  });
   res.send({ message: 'Деавторизация' });
   return res.end();
 };
