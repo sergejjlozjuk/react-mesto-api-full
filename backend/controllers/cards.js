@@ -1,4 +1,4 @@
-const { NotFoundError, ForbiddenError } = require('../error/error');
+const { NotFoundError, ForbiddenError, BadRequestError } = require('../error/error');
 const card = require('../models/card');
 
 const createCard = (req, res, next) => {
@@ -7,7 +7,13 @@ const createCard = (req, res, next) => {
   card
     .create({ name, link, owner })
     .then((cardItem) => res.status(201).send(cardItem))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError('Некорректные данные при создание карточки'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const getCards = (req, res, next) => {
@@ -22,7 +28,6 @@ const getCards = (req, res, next) => {
 const deleteCard = (req, res, next) => {
   card
     .findById(req.params.cardId)
-    .populate(['owner', 'likes'])
     .orFail(new NotFoundError('Такой карточки не сущетвует'))
     .then((cardItem) => {
       if (cardItem.owner._id.toString() !== req.user._id) {
@@ -39,7 +44,6 @@ const setLike = (req, res, next) => {
       { $addToSet: { likes: req.user._id } },
       { new: true },
     )
-    .populate(['owner', 'likes'])
     .then((cardItem) => {
       if (cardItem) {
         res.status(200).send(cardItem);
@@ -56,7 +60,6 @@ const deleteLike = (req, res, next) => {
       { $pull: { likes: req.user._id } },
       { new: true },
     )
-    .populate(['owner', 'likes'])
     .then((cardItem) => {
       if (card) {
         res.status(200).send(cardItem);

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-const { NotFoundError, AuthenticationError } = require('../error/error');
+const { NotFoundError, AuthenticationError, BadRequestError } = require('../error/error');
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -14,7 +14,7 @@ const getUserProfile = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFoundError('Такого пользователя не существует'))
     .then((user) => {
-      res.status(200).send({ data: user });
+      res.send({ data: user });
     })
     .catch(next);
 };
@@ -49,7 +49,15 @@ const createUser = (req, res, next) => {
         email,
       });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.code === 11000) {
+        next(new BadRequestError('Этот email уже зарегестрирован'));
+      } else if (err.name === 'ValidationError') {
+        next(new BadRequestError('Некорректные данные при создание пользователя'));
+      } else {
+        next(err);
+      }
+    });
 };
 const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
@@ -69,7 +77,13 @@ const updateProfile = (req, res, next) => {
         throw new NotFoundError('Такого пользователя не существует');
       }
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError('Некорректные данные при обновлении имени'));
+      } else {
+        next(err);
+      }
+    });
 };
 const updateAvatar = (req, res, next) => {
   const id = req.user._id;
@@ -90,7 +104,13 @@ const updateAvatar = (req, res, next) => {
         throw new NotFoundError('Такого пользователя не существует');
       }
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError('Некорректные данные при обновлении аватара'));
+      } else {
+        next(err);
+      }
+    });
 };
 const login = (req, res, next) => {
   const { email, password } = req.body;

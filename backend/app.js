@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const { default: helmet } = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 mongoose.set('strictQuery', false);
@@ -25,6 +26,7 @@ const {
   DB_NAME = 'mestodb',
 } = process.env;
 mongoose.connect(DB_CONNECT + DB_NAME);
+app.use(helmet);
 app.use(checkSource);
 app.use(limiter);
 app.use(requestLogger);
