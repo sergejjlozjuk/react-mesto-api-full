@@ -3,6 +3,7 @@ const { ValidationError } = require('./validationerror');
 const { NotFoundError } = require('./notfounderror');
 const { ForbiddenError } = require('./forbidenerror');
 const { BadRequestError } = require('./badrequesterror');
+const { ConflictError } = require('./conflicterror');
 
 const errorHandler = (err, req, res, next) => {
   if (
@@ -11,6 +12,7 @@ const errorHandler = (err, req, res, next) => {
     || err instanceof AuthenticationError
     || err instanceof ForbiddenError
     || err instanceof BadRequestError
+    || err instanceof ConflictError
   ) {
     res.status(err.statusCode).send({ message: err.message });
   } else if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -27,5 +29,6 @@ module.exports = {
   AuthenticationError,
   ForbiddenError,
   BadRequestError,
+  ConflictError,
   errorHandler,
 };

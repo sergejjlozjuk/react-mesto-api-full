@@ -3,7 +3,12 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-const { NotFoundError, AuthenticationError, BadRequestError } = require('../error/error');
+const {
+  NotFoundError,
+  AuthenticationError,
+  BadRequestError,
+  ConflictError,
+} = require('../error/error');
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -51,7 +56,7 @@ const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        next(new BadRequestError('Этот email уже зарегестрирован'));
+        next(new ConflictError('Этот email уже зарегестрирован'));
       } else if (err.name === 'ValidationError') {
         next(new BadRequestError('Некорректные данные при создание пользователя'));
       } else {
