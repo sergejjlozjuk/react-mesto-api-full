@@ -26,7 +26,7 @@ const {
   DB_NAME = 'mestodb',
 } = process.env;
 mongoose.connect(DB_CONNECT + DB_NAME);
-app.use(helmet);
+app.use(helmet());
 app.use(checkSource);
 app.use(limiter);
 app.use(requestLogger);
