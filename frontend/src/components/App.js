@@ -166,6 +166,7 @@ export default function App() {
         if (res) {
           setLoggedIn(true)
           history.goForward('/')
+          checkAuthorization()
         }
       })
       .catch((err) => {
@@ -198,11 +199,15 @@ export default function App() {
       })
   }
   function signOut() {
-    setLoggedIn(false)
-    setEmail('')
     auth.signOut()
-    setCurrenUser(null)
-    history.push('/sign-in')
+    .then((res) => {
+      if (res.ok) {
+        setCurrenUser('')
+        setEmail('')
+        setLoggedIn(false)
+        history.push('/sign-in')
+      }
+    }).then(() => history.push('/sign-in'))
   }
   const isOpen =
     isAddPlacePopupOpen ||

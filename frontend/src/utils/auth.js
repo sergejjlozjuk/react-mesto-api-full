@@ -1,6 +1,6 @@
 export default class Auth {
   constructor() {
-    this.baseURL = 'http://localhost:3000'
+    this.baseURL = 'https://api.mesto.sergejj.nomoredomainsclub.ru'
   }
   _getResponseData (res) {
     if (res.ok) {
